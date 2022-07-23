@@ -32,6 +32,11 @@ function love.load()
 	-- 5 - Victoire
 	gamestate = 1
 	
+	-- Move vars
+	moveLeft = 0
+	moveRight = 0
+	moveJump = 0
+	
 	
 end
 
@@ -83,7 +88,27 @@ function love.keypressed(key)
 	-- Lecture / changement des evenements en fonction des boutons
 	if gamestate == 2 then
 		-- Jeu en cours : Lecture normale des boutons
-		gamestate = 3
+		
+		-- Flèche gauche -> Aller à gauche
+		if key == 'left' then			
+			moveLeft = 1
+		end
+		
+		-- Flèche droite -> Aller à droite
+		if key == 'right' then
+			moveRight = 1
+		end
+		
+		-- Espace -> Sauter
+		if key == 'space' then
+			moveJump = 1
+		end
+		
+		-- Entrée -> Pause
+		if key == 'return' then
+			gamestate = 3
+		end
+		
 	else
 		-- N'importe quel autre état -> Changement de l'état
 		if gamestate == 3 then
@@ -98,6 +123,25 @@ function love.keypressed(key)
 			end
 		end
 	end
+end
 
+-- Fonction de détection des touches - relacher
+function love.keyreleased(key)
+
+	-- Lecture / changement des evenements en fonction des boutons relachés
+	-- Flèche gauche -> Aller à gauche
+	if key == 'left' then
+		moveLeft = 0
+	end
 	
+	-- Flèche droite -> Aller à droite
+	if key == 'right' then
+		moveRight = 0
+	end
+	
+	-- Espace -> Sauter
+	if key == 'space' then
+		moveJump = 0
+	end
+		
 end
